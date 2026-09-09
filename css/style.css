@@ -1555,33 +1555,132 @@ section { padding: 6.5rem 0; position: relative; }
     margin: 0 auto 1rem auto !important;
   }
 
-  /* RFQ Form Mobile Polish */
-  .rfq-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+  /* ==========================================================================
+     DIRECT BUYER DESK (B2B COMMERCIAL RFQ) MOBILE OPTIMIZATION
+     ========================================================================== */
+  .rfq-section-wrap {
+    padding: 2rem 1rem !important;
+    margin: 1.5rem 0 !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 10px 30px rgba(8, 25, 61, 0.35) !important;
   }
 
-  .rfq-card {
-    padding: 1.5rem 1.15rem !important;
+  .rfq-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.75rem !important;
+  }
+
+  .rfq-info {
+    text-align: left !important;
+    padding: 0 !important;
+  }
+
+  .rfq-info .eyebrow {
+    font-size: 0.72rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .rfq-info h2 {
+    font-size: 1.65rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.85rem !important;
+    color: var(--white) !important;
+  }
+
+  .rfq-info p {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.35rem !important;
+    color: rgba(255, 255, 255, 0.86) !important;
+  }
+
+  .rfq-highlights {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .rfq-highlight-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+    color: var(--white) !important;
+  }
+
+  .rfq-highlight-item svg {
+    width: 18px !important;
+    height: 18px !important;
+    margin-top: 2px !important;
+    flex-shrink: 0 !important;
+    color: var(--gold-400) !important;
+  }
+
+  /* Form Card on Mobile */
+  .rfq-form-box {
+    padding: 1.35rem 1rem !important;
+    border-radius: var(--radius-sm) !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22) !important;
     box-sizing: border-box !important;
   }
 
-  .rfq-form-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 0.95rem !important;
+  .rfq-form-box h3 {
+    font-size: 1.35rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.35rem !important;
+    color: var(--navy-900) !important;
   }
 
-  .form-group label {
+  .rfq-form-box p {
     font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 1.25rem !important;
+    color: var(--text-muted) !important;
   }
 
-  .form-control {
-    padding: 0.75rem 0.9rem !important;
-    font-size: 16px !important;
+  .rfq-form-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.9rem !important;
+  }
+
+  .form-label {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.35rem !important;
+    font-weight: 700 !important;
+    color: var(--navy-900) !important;
+    display: block !important;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
     min-height: 48px !important;
+    padding: 0.75rem 0.85rem !important;
+    border-radius: 6px !important;
+    border: 1px solid var(--border-light) !important;
     width: 100% !important;
+    box-sizing: border-box !important;
+    background: #FFFFFF !important;
+    color: var(--navy-900) !important;
+  }
+
+  .form-group-full {
+    width: 100% !important;
+  }
+
+  .rfq-form-grid button[type="submit"] {
+    min-height: 50px !important;
+    width: 100% !important;
+    font-size: 0.92rem !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 6px !important;
+    justify-content: center !important;
     box-sizing: border-box !important;
   }
 

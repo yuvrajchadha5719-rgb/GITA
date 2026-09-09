@@ -43,15 +43,14 @@ function initMobileDrawer() {
   if (!drawer || !overlay) return;
 
   const openDrawer = (e) => {
-    if (e) e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     drawer.classList.add('open');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
   };
 
-  const closeDrawer = (e) => {
-    if (e) e.preventDefault();
+  const closeDrawer = () => {
     drawer.classList.remove('open');
     overlay.classList.remove('open');
     document.body.style.overflow = '';
@@ -62,11 +61,21 @@ function initMobileDrawer() {
   window.closeGitaMobileDrawer = closeDrawer;
 
   toggleBtns.forEach(btn => {
-    btn.addEventListener('click', openDrawer);
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openDrawer();
+    });
   });
 
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  overlay.addEventListener('click', closeDrawer);
+  if (closeBtn) closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeDrawer();
+  });
+
+  overlay.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeDrawer();
+  });
 
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
@@ -75,10 +84,27 @@ function initMobileDrawer() {
     }
   });
 
-  // Close drawer when clicking any nav link inside drawer
+  // Handle drawer navigation links cleanly without blocking navigation
   const drawerLinks = drawer.querySelectorAll('.drawer-link, .drawer-footer a');
   drawerLinks.forEach(link => {
-    link.addEventListener('click', closeDrawer);
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      // If in-page anchor hash link (e.g. #rfq)
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        closeDrawer();
+        const target = document.querySelector(href);
+        if (target) {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 250);
+        }
+      } else {
+        // Normal page navigation (e.g. products.html, about.html, contact.html)
+        // DO NOT preventDefault! Just close the drawer and allow browser navigation
+        closeDrawer();
+      }
+    });
   });
 }
 
