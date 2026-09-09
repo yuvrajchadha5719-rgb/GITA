@@ -33,28 +33,38 @@ function initStickyHeader() {
   handleScroll();
 }
 
-// Mobile Drawer Toggle
+// Mobile Drawer Toggle Engine (Header Hamburger + Bottom Bar Menu)
 function initMobileDrawer() {
-  const toggleBtn = document.querySelector('.mobile-toggle');
+  const toggleBtns = document.querySelectorAll('.mobile-toggle, .mobile-bottom-menu-btn');
   const drawer = document.querySelector('.mobile-drawer');
   const overlay = document.querySelector('.mobile-drawer-overlay');
   const closeBtn = document.querySelector('.drawer-close');
 
-  if (!toggleBtn || !drawer || !overlay) return;
+  if (!drawer || !overlay) return;
 
-  const openDrawer = () => {
+  const openDrawer = (e) => {
+    if (e) e.preventDefault();
     drawer.classList.add('open');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
   };
 
-  const closeDrawer = () => {
+  const closeDrawer = (e) => {
+    if (e) e.preventDefault();
     drawer.classList.remove('open');
     overlay.classList.remove('open');
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   };
 
-  toggleBtn.addEventListener('click', openDrawer);
+  window.openGitaMobileDrawer = openDrawer;
+  window.closeGitaMobileDrawer = closeDrawer;
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', openDrawer);
+  });
+
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   overlay.addEventListener('click', closeDrawer);
 
@@ -66,7 +76,7 @@ function initMobileDrawer() {
   });
 
   // Close drawer when clicking any nav link inside drawer
-  const drawerLinks = drawer.querySelectorAll('.drawer-link');
+  const drawerLinks = drawer.querySelectorAll('.drawer-link, .drawer-footer a');
   drawerLinks.forEach(link => {
     link.addEventListener('click', closeDrawer);
   });
@@ -368,9 +378,27 @@ function initMobileBottomBar() {
       </svg>
       <span>Products</span>
     </a>
+
+    <button type="button" class="mobile-bottom-item mobile-bottom-menu-btn" title="Open Navigation Menu" aria-label="Open Navigation Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <span>Menu</span>
+    </button>
   `;
 
   document.body.appendChild(bottomBar);
+
+  // Wire up Menu button in bottom bar
+  const bottomMenuBtn = bottomBar.querySelector('.mobile-bottom-menu-btn');
+  if (bottomMenuBtn) {
+    bottomMenuBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.openGitaMobileDrawer) {
+        window.openGitaMobileDrawer(e);
+      }
+    });
+  }
 
   // Smooth scroll for in-page RFQ clicks
   const rfqBottomLink = bottomBar.querySelector(`a[href="#rfq"]`);
