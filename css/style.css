@@ -1244,22 +1244,379 @@ section { padding: 6.5rem 0; position: relative; }
 }
 
 @media (max-width: 768px) {
-  .site-header { padding: 0.75rem 0; }
-  .brand-logo img { height: 56px; }
+  .site-header { padding: 0.65rem 0; }
+  .brand-logo img { height: 48px; }
   .nav-menu, .nav-actions { display: none; }
   .mobile-toggle { display: block; }
-  .hero { padding-top: 7.5rem; padding-bottom: 3rem; }
-  .heading-display { font-size: 2.35rem; }
-  .heading-section { font-size: 1.95rem; }
-  .pillars-grid, .category-grid, .leadership-grid, .process-grid-6d, .what-we-do-grid, .services-grid { grid-template-columns: 1fr; }
-  .hero-stats-grid { grid-template-columns: 1fr; }
-  .infra-grid { grid-template-columns: 1fr; }
-  .rfq-form-grid { grid-template-columns: 1fr; }
-  .ribbon-grid    { grid-template-columns: 1fr; }
-  .corridors-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-top     { grid-template-columns: 1fr; gap: 2.25rem; }
-  .footer-compliance { flex-direction: column; align-items: flex-start; }
-  .faq-question-btn { font-size: 1.15rem; padding: 1.25rem; }
-  .whatsapp-float-btn span { display: none; }
-  .whatsapp-float-btn { padding: 0.85rem; bottom: 1.5rem; right: 1.5rem; }
+  .hero-video-toggle { display: none; }
+
+  /* Hero Section on Mobile */
+  .hero {
+    padding-top: 5.75rem;
+    padding-bottom: 2.5rem;
+    min-height: auto;
+  }
+
+  .hero-badge {
+    padding: 0.35rem 0.95rem;
+    margin-bottom: 1.15rem;
+    max-width: 100%;
+  }
+
+  .hero-badge span {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+
+  .heading-display {
+    font-size: clamp(1.75rem, 7.2vw, 2.25rem);
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .hero-sub {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.92rem;
+  }
+
+  /* 2x2 Clean Dashboard Stats Grid on Mobile */
+  .hero-stats-strip {
+    margin-top: 2rem;
+  }
+
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem;
+  }
+
+  .hero-stat-card {
+    padding: 0.9rem 0.75rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .hero-stat-card .stat-number {
+    font-size: 1.65rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .hero-stat-card .stat-label {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  /* Section Spacing & Headings */
+  .section {
+    padding: 3.25rem 0;
+  }
+
+  .section-alt {
+    padding: 3.25rem 0;
+  }
+
+  .heading-section {
+    font-size: 1.7rem;
+    line-height: 1.25;
+    margin-bottom: 0.65rem;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Grids Stacked Cleanly */
+  .pillars-grid,
+  .category-grid,
+  .leadership-grid,
+  .process-grid-6d,
+  .what-we-do-grid,
+  .services-grid,
+  .infra-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Leadership Cards on Mobile */
+  .leader-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .leader-avatar-wrap {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+  }
+
+  /* Product Cards & Specs */
+  .category-card {
+    padding: 1.25rem;
+  }
+
+  .category-card img {
+    height: 190px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* RFQ Form Mobile Polish */
+  .rfq-card {
+    padding: 1.5rem 1.15rem;
+  }
+
+  .rfq-form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.82rem;
+  }
+
+  .form-control {
+    padding: 0.75rem 0.9rem;
+    font-size: 16px !important;
+  }
+
+  /* Trade Corridors Grid */
+  .corridors-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .corridor-card {
+    padding: 1rem;
+  }
+
+  .ribbon-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Spec Table Touch Scrolling */
+  .specs-table-wrap {
+    margin: 1.25rem 0 2rem;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-sm);
+  }
+
+  .specs-table th,
+  .specs-table td {
+    padding: 0.85rem 0.95rem;
+    font-size: 0.82rem;
+  }
+
+  /* Mobile Drawer */
+  .mobile-drawer {
+    width: min(320px, 86vw);
+    padding: 1.5rem 1.25rem;
+  }
+
+  .drawer-link {
+    padding: 0.8rem 1rem;
+    font-size: 1.05rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .faq-question-btn {
+    font-size: 1.1rem;
+    padding: 1.15rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-compliance {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   MOBILE DETECTION & HIGH-PERFORMANCE MOBILE OPTIMIZATIONS
+   ========================================================================== */
+
+/* Mobile Touch & Tap Ergonomics */
+html.is-touch-device button,
+html.is-touch-device a,
+html.is-touch-device input,
+html.is-touch-device select {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent iOS Safari Automatic Zoom on Input Focus */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile Bottom Quick-Action Bar (High-Converting Thumb Navigation) */
+.mobile-bottom-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body.has-mobile-bottom-bar {
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-bottom-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: rgba(8, 25, 61, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(195, 154, 58, 0.35);
+    z-index: 999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.28);
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .mobile-bottom-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    gap: 3px;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+
+  .mobile-bottom-item svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.2;
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-bottom-item:active {
+    transform: scale(0.92);
+  }
+
+  .mobile-bottom-item.active,
+  .mobile-bottom-item:hover {
+    color: var(--gold-400);
+  }
+
+  .mobile-bottom-item.highlight {
+    color: #25D366;
+  }
+
+  .mobile-bottom-item.highlight svg {
+    fill: #25D366;
+    stroke: none;
+  }
+
+  /* Reposition Floating WhatsApp Button Above Mobile Bottom Bar */
+  .whatsapp-float-btn {
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px)) !important;
+    right: 1.15rem !important;
+    padding: 0.75rem !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  }
+
+  .whatsapp-float-btn span {
+    display: none;
+  }
+}
+
+/* Mobile Table Swipe Hint */
+.mobile-swipe-hint {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-swipe-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--gold-600);
+    background: rgba(195, 154, 58, 0.08);
+    border: 1px dashed rgba(195, 154, 58, 0.35);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .mobile-swipe-hint svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+}
+
+/* Extra Compact Phones (e.g. iPhone SE, 360px - 390px) */
+@media (max-width: 390px) {
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem;
+  }
+
+  .hero-stat-card {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .hero-stat-card .stat-number {
+    font-size: 1.45rem;
+  }
+
+  .hero-stat-card .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .heading-display {
+    font-size: 1.65rem;
+  }
 }

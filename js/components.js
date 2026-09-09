@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initMobileDetection();
   initStickyHeader();
   initMobileDrawer();
   highlightActiveNav();
@@ -11,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initRfqForm();
   initStatCounters();
   initHeroVideo();
+  initMobileBottomBar();
+  initResponsiveTables();
 });
 
 // Sticky Header Transition
@@ -298,4 +301,104 @@ function initHeroVideo() {
   }
 }
 
+// Dynamic Mobile & Touch Device Detection Engine
+function initMobileDetection() {
+  const detectDevice = () => {
+    const isMobileWidth = window.innerWidth <= 768;
+    const isSmallPhone = window.innerWidth <= 480;
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera || '';
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isMobile = isMobileWidth || isMobileUA;
 
+    document.documentElement.classList.toggle('is-mobile-device', isMobile);
+    document.documentElement.classList.toggle('is-small-phone', isSmallPhone);
+    document.documentElement.classList.toggle('is-touch-device', isTouch);
+    document.documentElement.setAttribute('data-device', isMobile ? 'mobile' : 'desktop');
+    document.documentElement.setAttribute('data-touch', isTouch ? 'true' : 'false');
+
+    if (isMobile) {
+      document.body.classList.add('has-mobile-bottom-bar');
+    } else {
+      document.body.classList.remove('has-mobile-bottom-bar');
+    }
+  };
+
+  detectDevice();
+  window.addEventListener('resize', detectDevice, { passive: true });
+  window.addEventListener('orientationchange', detectDevice, { passive: true });
+}
+
+// Mobile Quick-Action Floating Bottom Bar (High-Converting Thumb Ergonomics)
+function initMobileBottomBar() {
+  if (document.querySelector('.mobile-bottom-bar')) return;
+
+  const currentPath = window.location.pathname;
+  const isHomePage = currentPath.endsWith('index.html') || currentPath === '/' || currentPath.endsWith('/');
+  const rfqLink = isHomePage ? '#rfq' : 'index.html#rfq';
+
+  const bottomBar = document.createElement('nav');
+  bottomBar.className = 'mobile-bottom-bar';
+  bottomBar.setAttribute('aria-label', 'Mobile Quick Actions');
+  bottomBar.innerHTML = `
+    <a href="tel:+919599037511" class="mobile-bottom-item" title="Call Trade Desk">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+      <span>Call Desk</span>
+    </a>
+
+    <a href="https://wa.me/919599037511?text=Hello%20GITA%20Trade%20Desk%2C%20I%20would%20like%20to%20inquire%20about%20importing%20rice%20from%20India." class="mobile-bottom-item highlight" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+      <svg viewBox="0 0 24 24">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.2.662.589 1.221.771 1.394.858.173.086.274.072.375-.043s.433-.505.549-.679c.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.203c.043.071.043.417-.101.822z"/>
+      </svg>
+      <span>WhatsApp</span>
+    </a>
+
+    <a href="${rfqLink}" class="mobile-bottom-item" title="Commercial RFQ Quote">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <span>RFQ Desk</span>
+    </a>
+
+    <a href="products.html" class="mobile-bottom-item" title="Rice Products &amp; Specs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+      </svg>
+      <span>Products</span>
+    </a>
+  `;
+
+  document.body.appendChild(bottomBar);
+
+  // Smooth scroll for in-page RFQ clicks
+  const rfqBottomLink = bottomBar.querySelector(`a[href="#rfq"]`);
+  if (rfqBottomLink) {
+    rfqBottomLink.addEventListener('click', (e) => {
+      const rfqElem = document.getElementById('rfq');
+      if (rfqElem) {
+        e.preventDefault();
+        rfqElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+}
+
+// Mobile Spec Tables Touch Scroll Enhancer
+function initResponsiveTables() {
+  const tableWraps = document.querySelectorAll('.specs-table-wrap');
+  tableWraps.forEach(wrap => {
+    if (wrap.previousElementSibling?.classList.contains('mobile-swipe-hint')) return;
+
+    const hint = document.createElement('div');
+    hint.className = 'mobile-swipe-hint';
+    hint.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+      </svg>
+      <span>Swipe horizontally to view full grain specifications</span>
+    `;
+    wrap.parentNode.insertBefore(hint, wrap);
+  });
+}
