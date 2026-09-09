@@ -153,12 +153,12 @@
 
     <!-- Ambient Background Video (Layer 1 — sits above the fallback image) -->
     <div class="hero-video-wrap" id="heroVideoWrap" aria-hidden="true">
-      <!-- Native HTML5 Video Fallback (Zero Config Errors, Hostinger Ready) -->
-      <video id="heroBgNativeVideo" class="hero-bg-native-video" autoplay loop muted playsinline webkit-playsinline preload="auto" poster="images/hero-command-deck.jpg" style="display: none;">
+      <!-- Native HTML5 Video (Primary Engine: Zero Errors, Zero Controls, Ultra Smooth) -->
+      <video id="heroBgNativeVideo" class="hero-bg-native-video" autoplay loop muted playsinline webkit-playsinline preload="auto" poster="images/hero-command-deck.jpg">
         <source src="images/hero-video.mp4" type="video/mp4">
       </video>
 
-      <!-- Clean YouTube Embed Player (No Deprecated Parameters, Standards Compliant) -->
+      <!-- Clean YouTube Embed Player (Fallback) -->
       <iframe
         id="heroBgVideo"
         src="https://www.youtube.com/embed/XlwuM3cI-yU?autoplay=1&mute=1&loop=1&playlist=XlwuM3cI-yU&controls=0&rel=0&playsinline=1"
@@ -166,7 +166,8 @@
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
-        tabindex="-1">
+        tabindex="-1"
+        style="display: none;">
       </iframe>
     </div>
 

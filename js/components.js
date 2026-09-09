@@ -240,16 +240,23 @@ function initHeroVideo() {
     return;
   }
 
-  let usingNative = false;
+  let usingNative = !!nativeVideo;
 
   // Check if native video file is available and playable
   if (nativeVideo) {
-    nativeVideo.addEventListener('loadeddata', () => {
+    nativeVideo.muted = true;
+    nativeVideo.defaultMuted = true;
+
+    const onVideoReady = () => {
       usingNative = true;
       nativeVideo.style.display = 'block';
       if (iframe) iframe.style.display = 'none';
       nativeVideo.play().catch(() => {});
-    });
+    };
+
+    nativeVideo.addEventListener('loadedmetadata', onVideoReady);
+    nativeVideo.addEventListener('loadeddata', onVideoReady);
+    nativeVideo.addEventListener('canplay', onVideoReady);
 
     nativeVideo.addEventListener('error', () => {
       // If local video fails to load, fallback to YouTube iframe
@@ -258,11 +265,8 @@ function initHeroVideo() {
       if (iframe) iframe.style.display = 'block';
     });
 
-    if (nativeVideo.readyState >= 2) {
-      usingNative = true;
-      nativeVideo.style.display = 'block';
-      if (iframe) iframe.style.display = 'none';
-      nativeVideo.play().catch(() => {});
+    if (nativeVideo.readyState >= 1) {
+      onVideoReady();
     }
   }
 
@@ -280,12 +284,23 @@ function initHeroVideo() {
 
   const startPlayback = () => {
     if (usingNative && nativeVideo) {
+      nativeVideo.muted = true;
       nativeVideo.play().catch(() => {});
-    } else {
+    } else if (iframe) {
       sendCommand('mute');
       sendCommand('playVideo');
     }
   };
+
+  // Passive touch/scroll unblocker for iOS Safari strict autoplay policies
+  const unblockAutoplay = () => {
+    if (usingNative && nativeVideo && nativeVideo.paused) {
+      nativeVideo.muted = true;
+      nativeVideo.play().catch(() => {});
+    }
+  };
+  window.addEventListener('touchstart', unblockAutoplay, { once: true, passive: true });
+  window.addEventListener('scroll', unblockAutoplay, { once: true, passive: true });
 
   if (iframe) {
     iframe.addEventListener('load', () => {
